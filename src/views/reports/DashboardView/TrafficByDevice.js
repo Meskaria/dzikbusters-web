@@ -48,7 +48,6 @@ const TrafficByDevice = ({ className, ...rest }) => {
   };
 
   const sum = fallen.data.reduce((acc, value) => acc + value, 0);
-  console.log(sum);
   const options = {
     animation: false,
     layout: { padding: 0 },

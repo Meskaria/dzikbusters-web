@@ -12,7 +12,6 @@ export const getVoivodeshipsFallenBoars = () => {
 
   const voi = [];
   const results = [];
-  console.log(grouped);
   Object.entries(grouped).forEach(([key, value]) => {
     voi.push(key);
     results.push(
@@ -48,10 +47,8 @@ export const totalCases = () => getVoivodeshipsFallenBoars().data.reduce(
   0
 );
 export const getLastMonthIncrease = () => {
-  console.log(totalCases());
   return Math.round(lastMothCases() / (totalCases() / 100));
 };
-console.log(getLastMonthIncrease(), 'inc');
 const normalizeCOD = (cause) => {
   switch (cause.toLowerCase()) {
     case 'padły/padłe':
@@ -105,11 +102,7 @@ export const groupedItemsByDate = () => {
     return moment(b.date_of_confirmation, 'DD/MM/YYYY').startOf('month').format('YYYY/MM');
   });
   const paired = toPairs(d);
-  console.log(paired, 'paired');
   const sorted = sortBy(paired, (kvArray) => kvArray[0]);
-  console.log(sorted, 'sorted');
   // const mapped = map(sorted, (kvArray) => kvArray[1]);
   return fromPairs(sorted);
 };
-
-console.log(groupedItemsByDate(), 'fdsfsd');

@@ -145,7 +145,6 @@ const ProductList = () => {
               } = cluster.properties;
 
               if (isCluster) {
-                // console.log(cluster, 'props');
                 return (
                   <Marker
                     key={`cluster-${cluster.id}`}
@@ -174,7 +173,6 @@ const ProductList = () => {
                 );
               }
 
-              console.log(cluster.properties);
               return (
                 <Marker
                   key={`boar-${cluster.properties.id}`}

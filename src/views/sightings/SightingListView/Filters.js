@@ -29,8 +29,6 @@ const Filters = ({
     ...selectData,
   };
   const [open, setOpen] = React.useState(false);
-  console.log(data);
-  console.log(setData);
   const handleClickOpen = () => {
     setOpen(true);
   };
