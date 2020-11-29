@@ -15,6 +15,7 @@ import {
 } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import { groupedItemsByDate } from '../../../service';
 
 const useStyles = makeStyles(() => ({
   root: {}
@@ -23,26 +24,21 @@ const useStyles = makeStyles(() => ({
 const Sales = ({ className, ...rest }) => {
   const classes = useStyles();
   const theme = useTheme();
-
+  const set = Object.entries(groupedItemsByDate());
   const data = {
     datasets: [
       {
         backgroundColor: colors.indigo[500],
-        data: [18, 5, 19, 27, 29, 19, 20],
-        label: 'This year'
+        data: set.map(([, value]) => value.length),
       },
-      {
-        backgroundColor: colors.grey[200],
-        data: [11, 20, 12, 29, 30, 25, 13],
-        label: 'Last year'
-      }
     ],
-    labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug']
+    // eslint-disable-next-line no-unused-vars
+    labels: set.map(([key]) => key),
   };
 
   const options = {
     animation: false,
-    cornerRadius: 20,
+    cornerRadius: 4,
     layout: { padding: 0 },
     legend: { display: false },
     maintainAspectRatio: false,
@@ -50,8 +46,8 @@ const Sales = ({ className, ...rest }) => {
     scales: {
       xAxes: [
         {
-          barThickness: 12,
-          maxBarThickness: 10,
+          barThickness: 20,
+          maxBarThickness: 30,
           barPercentage: 0.5,
           categoryPercentage: 0.5,
           ticks: {
@@ -107,10 +103,10 @@ const Sales = ({ className, ...rest }) => {
             size="small"
             variant="text"
           >
-            Last 7 days
+            Ostatni rok
           </Button>
         )}
-        title="Latest Sales"
+        title="Ostatnie potwierdzone przypadki"
       />
       <Divider />
       <CardContent>
@@ -136,7 +132,7 @@ const Sales = ({ className, ...rest }) => {
           size="small"
           variant="text"
         >
-          Overview
+          Szczegóły
         </Button>
       </Box>
     </Card>

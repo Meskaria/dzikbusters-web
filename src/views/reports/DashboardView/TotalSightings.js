@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import PeopleIcon from '@material-ui/icons/PeopleOutlined';
+import { getLastMonthIncrease, totalCases } from '../../../service';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,13 +53,13 @@ const TotalSightings = ({ className, ...rest }) => {
               gutterBottom
               variant="h6"
             >
-              Obserwacje TOTAL
+              Zachorowania
             </Typography>
             <Typography
               color="textPrimary"
               variant="h3"
             >
-              1,600
+              {totalCases()}
             </Typography>
           </Grid>
           <Grid item>
@@ -77,13 +78,13 @@ const TotalSightings = ({ className, ...rest }) => {
             className={classes.differenceValue}
             variant="body2"
           >
-            16%
+            {`${getLastMonthIncrease()}%`}
           </Typography>
           <Typography
             color="textSecondary"
             variant="caption"
           >
-            Since last month
+            w ostatnich 30 dniach
           </Typography>
         </Box>
       </CardContent>

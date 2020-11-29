@@ -45,12 +45,11 @@ const Filters = ({
       <Dialog disableBackdropClick disableEscapeKeyDown open={open} onClose={handleClose}>
         <DialogTitle>Wybierz filtry które chcesz zastosować</DialogTitle>
         <Formik
-          initialValues={Object.keys(SELECT_KEYS).reduce((acc, key) => {
+          initialValues={SELECT_KEYS.map((key) => {
             return {
-              ...acc,
               [key]: ''
             };
-          }, {})}
+          })}
           onSubmit={(val) => console.log(val)}
         >
           {({

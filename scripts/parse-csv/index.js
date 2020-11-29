@@ -22,15 +22,15 @@ const fs = require('fs');
         noheader: false,
         trim: true,
         delimiter: ';',
-        headers: 'NR ADNS;Nr przypadku w województwie;Województwo;Kod jednostki TRACES;Powiat wg kodu TERYT;Gmina;Miejscowość (najbliższa lub Nr obwodu łowieckiego) - jeśli możliwe;Nazwa obszaru z DWK 2014/709;Szerokość;Długość;Sposób unieszkodliwienia zwłok;Data zgłoszenia;Data wysłania próbek;Data potwierdzenia;Nr sprawozdania z badań (ostatecznego);Rodzaj badania;Liczba dzików dodatnich;Przyczyna podejrzenia;Płeć - wiek (w miesiącach) - waga;+;++;+++;Kości'.split(';'),
+        headers: 'adns;voivodeship_case_number;voivodeship;TRACES;TERYT_district;borough;city;DWK;latitude;longitude;method_of_neutralization;date_of_filling;date_of_sample_dispatch;date_of_confirmation;test_id;type_of_test;number_of_sick_boar;cause_of_suspicion;gender_age_weight;corpse_state_one;corpse_state_two;corpse_state_three;corpse_state_bones'.split(';'),
         colParser: {
-          'NR ADNS': 'number',
-          'Nr przypadku w województwie': 'number',
-          'Liczba dzików dodatnich': 'number',
-          '+': 'number',
-          '++': 'number',
-          '+++': 'number',
-          "Kości": 'number',
+          adns: 'number',
+          voivodeship_case_number: 'number',
+          number_of_sick_boar: 'number',
+          corpse_state_one: 'number',
+          corpse_state_two: 'number',
+          corpse_state_three: 'number',
+          corpse_state_bones: (input) => (input === '1' ? Number(input) : 0),
         }
       })
         .fromFile(csvFilePath);

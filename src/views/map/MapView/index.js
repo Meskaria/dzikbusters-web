@@ -1,25 +1,21 @@
 import React, { useRef, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import cx from 'classnames';
+import moment from 'moment';
 import useSupercluster from 'use-supercluster';
 import pointerDeadImg from 'src/icons/padly.png';
 import pointerAccImg from 'src/icons/accident.png';
 import pointerShotImg from 'src/icons/red-crosshairs-png-7.png';
-import {
-  Box,
-  Container,
-  makeStyles
-} from '@material-ui/core';
+import { Box, Container, makeStyles } from '@material-ui/core';
 import Page from 'src/components/Page';
 import data from '../../../res.json';
-import { KEYS } from '../../../const';
 
 const pointers = {
   odstrzelony: pointerShotImg,
   'odstrzelony z objawami': pointerShotImg,
   'padły/padłe': pointerDeadImg,
   padły: pointerDeadImg,
-  'zabity w wypadku': pointerAccImg,
+  'zabity w wypadku': pointerAccImg
 };
 const getSize = (count) => {
   if (count <= 10) {
@@ -51,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     textAlign: 'center',
     display: 'flex',
-    borderRadius: '100px',
+    borderRadius: '100px'
   },
   clusterWrap: {
     justifyContent: 'center',
@@ -60,15 +56,15 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     borderRadius: '100px',
     boxShadow: '1px 1px 4px 3px #dc5353',
-    backgroundColor: '#dc5353',
+    backgroundColor: '#dc5353'
   },
   boarMarker: {
     border: 'none',
-    background: 'transparent',
+    background: 'transparent'
   },
   boarMarkerImg: {
     height: '30px',
-    width: '30px',
+    width: '30px'
   },
   boarMarkerConfirmed: {
     background: '#dc53537d',
@@ -77,35 +73,38 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     display: 'flex',
     alignOtems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   }
 }));
 
 // eslint-disable-next-line react/prop-types,max-len
-const Marker = ({ children, className, style }) => <div style={style} className={className}>{children}</div>;
+const Marker = ({ children, className, style }) => (
+  <div style={style} className={className}>
+    {children}
+  </div>
+);
 const ProductList = () => {
   const classes = useStyles();
   const mapRef = useRef();
   const [sightings] = useState(data);
   const [bounds, setBounds] = useState(null);
   const [zoom, setZoom] = useState(10);
-  const errorIds = [];
 
   const points = sightings.map((d) => ({
     type: 'Feature',
     properties: {
-      cluster: false, id: d[KEYS.id], category: d[KEYS.cause], type: 'confirmed'
+      cluster: false,
+      id: d.adns,
+      category: d.cause_of_suspicion,
+      type: 'confirmed',
+      has30daysRadius: moment().diff(moment(d.date_of_confirmation)) <= 30,
+      has40daysRadius: moment().diff(moment(d.date_of_confirmation)) <= 40
     },
     geometry: {
       type: 'Point',
-      coordinates: [
-        parseFloat(d[KEYS.lng]),
-        parseFloat(d[KEYS.lat])
-      ]
+      coordinates: [parseFloat(d.longitude), parseFloat(d.latitude)]
     }
   }));
-
-  console.log(errorIds);
 
   const { clusters, supercluster } = useSupercluster({
     points,
@@ -114,15 +113,14 @@ const ProductList = () => {
     options: { radius: 100, maxZoom: 36 }
   });
   return (
-    <Page
-      className={classes.root}
-      title="Products"
-    >
+    <Page className={classes.root} title="Products">
       <Container maxWidth={false}>
         {/* <Toolbar /> */}
-        <Box mt={3} height={750} width={900}>
+        <Box mt={1} height={800} width={1530}>
           <GoogleMapReact
-            bootstrapURLKeys={{ key: 'AIzaSyDj0eEH8lm2C-uXpxiVmTMerITqwwj_rfU' }}
+            bootstrapURLKeys={{
+              key: 'AIzaSyDj0eEH8lm2C-uXpxiVmTMerITqwwj_rfU'
+            }}
             defaultCenter={{ lat: 52.2297, lng: 21.0122 }}
             defaultZoom={10}
             yesIWantToUseGoogleMapApiInternals
@@ -185,7 +183,10 @@ const ProductList = () => {
                 >
                   <button type="button" className={classes.boarMarker}>
                     <img
-                      className={cx(classes.boarMarkerImg, classes.boarMarkerConfirmed)}
+                      className={cx(
+                        classes.boarMarkerImg,
+                        classes.boarMarkerConfirmed
+                      )}
                       src={pointers[cluster.properties.category.toLowerCase()]}
                       alt={cluster.properties.category}
                       title={cluster.properties.category}

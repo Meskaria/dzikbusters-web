@@ -1,19 +1,61 @@
-export const SELECT_KEYS = {
-  wojewodztwo: 'Województwo',
+export const CONFIRMED_CASES_KEYS = {
+  adns: 'adns',
+  voivodeship_case_number: 'voivodeship_case_number',
+  voivodeship: 'voivodeship',
+  TRACES: 'TRACES',
+  TERYT_district: 'TERYT_district',
+  borough: 'borough',
+  city: 'city',
+  DWK: 'DWK',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  method_of_neutralization: 'method_of_neutralization',
+  date_of_filling: 'date_of_filling',
+  date_of_sample_dispatch: 'date_of_sample_dispatch',
+  date_of_confirmation: 'date_of_confirmation',
+  test_id: 'test_id',
+  type_of_test: 'type_of_test',
+  number_of_sick_boar: 'number_of_sick_boar',
+  cause_of_suspicion: 'cause_of_suspicion',
+  gender_age_weight: 'gender_age_weight',
+  corpse_state_one: 'corpse_state_one',
+  corpse_state_two: 'corpse_state_two',
+  corpse_state_three: 'corpse_state_three',
+  corpse_state_bones: 'corpse_state_bones'
+};
+export const CONFIRMED_CASES_COPY = {
+  adns: 'NR ADNS',
+  voivodeship_case_number: 'Nr przypadku w województwie',
+  voivodeship: 'Województwo',
   TRACES: 'Kod jednostki TRACES',
-  TERYT: 'Powiat wg kodu TERYT',
-  gmina: 'Gmina',
-  miejscowosc: 'Miejscowość (najbliższa lub Nr obwodu łowieckiego) - jeśli możliwe',
-  DKW: 'Nazwa obszaru z DWK 2014/709',
-  przyczyna: 'Przyczyna podejrzenia',
-  rodzajBadania: 'Rodzaj badania',
-  nrBadania: 'Nr sprawozdania z badań',
-  unieszkodliwienie: 'Sposób unieszkodliwienia zwłok'
+  TERYT_district: 'Powiat wg kodu TERYT',
+  borough: 'Gmina',
+  city: 'Miejscowość (najbliższa lub Nr obwodu łowieckiego) - jeśli możliwe',
+  DWK: 'Nazwa obszaru z DWK 2014/709',
+  latitude: 'Szerokość',
+  longitude: 'Długość',
+  method_of_neutralization: 'Sposób unieszkodliwienia zwłok',
+  date_of_filling: 'Data zgłoszenia',
+  date_of_sample_dispatch: 'Data wysłania próbek',
+  date_of_confirmation: 'Data potwierdzenia',
+  test_id: 'Nr sprawozdania z badań (ostatecznego)',
+  type_of_test: 'Rodzaj badania',
+  number_of_sick_boar: 'Liczba dzików dodatnich',
+  cause_of_suspicion: 'Przyczyna podejrzenia',
+  gender_age_weight: 'Płeć - wiek (w miesiącach) - waga',
+  corpse_state_one: '+',
+  corpse_state_two: '++',
+  corpse_state_three: '+++',
+  corpse_state_bones: 'Kości'
 };
 
-export const KEYS = {
-  id: 'NR ADNS',
-  lat: 'Szerokość',
-  lng: 'Długość',
-  cause: 'Przyczyna podejrzenia'
-};
+export const SELECT_KEYS = [
+  CONFIRMED_CASES_KEYS.voivodeship,
+  CONFIRMED_CASES_KEYS.TRACES,
+  CONFIRMED_CASES_KEYS.TERYT_district,
+  CONFIRMED_CASES_KEYS.borough,
+  CONFIRMED_CASES_KEYS.city,
+  CONFIRMED_CASES_KEYS.DWK,
+  CONFIRMED_CASES_KEYS.cause_of_suspicion,
+  CONFIRMED_CASES_KEYS.type_of_test,
+];

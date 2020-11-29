@@ -7,6 +7,7 @@ import {
   Box, Card, makeStyles
 } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
+import { CONFIRMED_CASES_KEYS } from '../../../const';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -19,75 +20,75 @@ const Results = ({ className, sightings, ...rest }) => {
   const classes = useStyles();
 
   const columns = [
-    { field: 'NR ADNS', headerName: 'NR ADNS' },
+    { field: CONFIRMED_CASES_KEYS.adns, headerName: 'NR ADNS' },
     {
-      field: 'Nr przypadku w województwie',
+      field: CONFIRMED_CASES_KEYS.voivodeship_case_number,
       headerName: 'Nr przypadku w woj.',
       width: 180
     },
-    { field: 'Województwo', headerName: 'Województwo', width: 125 },
-    { field: 'Kod jednostki TRACES', headerName: 'Kod TRACES', width: 130 },
-    { field: 'Powiat wg kodu TERYT', headerName: 'Powiat (TERYT)', width: 150 },
-    { field: 'Gmina', headerName: 'Gmina' },
+    { field: CONFIRMED_CASES_KEYS.voivodeship, headerName: 'Województwo', width: 125 },
+    { field: CONFIRMED_CASES_KEYS.TRACES, headerName: 'Kod TRACES', width: 130 },
+    { field: CONFIRMED_CASES_KEYS.TERYT_district, headerName: 'Powiat (TERYT)', width: 150 },
+    { field: CONFIRMED_CASES_KEYS.borough, headerName: 'Gmina' },
     {
       field:
-        'Miejscowość (najbliższa lub Nr obwodu łowieckiego) - jeśli możliwe',
+      CONFIRMED_CASES_KEYS.city,
       headerName: 'Miejscowość (najbliższa lub Nr obwodu łowieckiego) - jeśli możliwe',
       width: 130
     },
     {
-      field: 'Nazwa obszaru z DWK 2014/709',
+      field: CONFIRMED_CASES_KEYS.DWK,
       headerName: 'Nazwa obszaru z DWK 2014/709',
       width: 130
     },
     {
-      field: 'Szerokość', headerName: 'Szerokość', width: 130, hidden: true
+      field: CONFIRMED_CASES_KEYS.latitude, headerName: 'Szerokość', width: 130, hidden: true
     },
     {
-      field: 'Długość', headerName: 'Długość', width: 130, hidden: true
+      field: CONFIRMED_CASES_KEYS.longitude, headerName: 'Długość', width: 130, hidden: true
     },
     {
-      field: 'Sposób unieszkodliwienia zwłok',
+      field: CONFIRMED_CASES_KEYS.method_of_neutralization,
       headerName: 'Sposób unieszkodliwienia zwłok',
       width: 130
     },
-    { field: 'Data zgłoszenia', headerName: 'Data zgłoszenia', width: 130 },
+    { field: CONFIRMED_CASES_KEYS.date_of_filling, headerName: 'Data zgłoszenia', width: 130 },
     {
-      field: 'Data wysłania próbek',
+      field: CONFIRMED_CASES_KEYS.date_of_sample_dispatch,
       headerName: 'Data wysłania próbek',
       width: 130
     },
     {
-      field: 'Data potwierdzenia',
+      field: CONFIRMED_CASES_KEYS.date_of_confirmation,
       headerName: 'Data potwierdzenia',
       width: 130
     },
     {
-      field: 'Nr sprawozdania z badań (ostatecznego)',
+      field: CONFIRMED_CASES_KEYS.test_id,
       headerName: 'Nr sprawozdania z badań (ostatecznego)',
       width: 130
     },
-    { field: 'Rodzaj badania', headerName: 'Rodzaj badania', width: 130 },
+    { field: CONFIRMED_CASES_KEYS.type_of_test, headerName: 'Rodzaj badania', width: 130 },
     {
-      field: 'Liczba dzików dodatnich',
+      field: CONFIRMED_CASES_KEYS.number_of_sick_boar,
       headerName: 'Liczba dzików dodatnich',
       width: 130
     },
     {
-      field: 'Przyczyna podejrzenia',
+      field: CONFIRMED_CASES_KEYS.cause_of_suspicion,
       headerName: 'Przyczyna podejrzenia',
       width: 130
     },
     {
-      field: 'Płeć - wiek (w miesiącach) - waga',
+      field: CONFIRMED_CASES_KEYS.gender_age_weight,
       headerName: 'Płeć - wiek (w miesiącach) - waga',
       width: 250,
       resizable: true
     },
-    { field: '+', headerName: '+', width: 40 },
-    { field: '++', headerName: '++', width: 50 },
-    { field: '+++', headerName: '+++', width: 60 },
-    { field: 'Kości', headerName: 'Kości', width: 70 }
+    { field: CONFIRMED_CASES_KEYS.corpse_state_one, headerName: '+', width: 40 },
+    { field: CONFIRMED_CASES_KEYS.corpse_state_two, headerName: '++', width: 50 },
+    { field: CONFIRMED_CASES_KEYS.corpse_state_three, headerName: '+++', width: 60 },
+    { field: CONFIRMED_CASES_KEYS.corpse_state_bones, headerName: 'Kości', width: 70 }
   ];
   return (
     <Card className={clsx(classes.root, className)} {...rest}>
@@ -98,7 +99,7 @@ const Results = ({ className, sightings, ...rest }) => {
             columns={columns}
             rows={sightings.map((s) => ({
               ...s,
-              id: s['NR ADNS']
+              id: s.adns
             }))}
             pageSize={20}
           />

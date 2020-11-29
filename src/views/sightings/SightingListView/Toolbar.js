@@ -27,7 +27,7 @@ const Toolbar = ({ className, children, ...rest }) => {
         {children}
         <Button className={classes.exportButton}>Export</Button>
         <Button color="primary" variant="contained">
-          Dodaj obserwacje
+          Dodaj zachorowanie
         </Button>
       </Box>
     </div>

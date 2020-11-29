@@ -8,14 +8,11 @@ import {
   CardContent,
   CardHeader,
   Divider,
-  Typography,
   colors,
   makeStyles,
   useTheme
 } from '@material-ui/core';
-import LaptopMacIcon from '@material-ui/icons/LaptopMac';
-import PhoneIcon from '@material-ui/icons/Phone';
-import TabletIcon from '@material-ui/icons/Tablet';
+import { getVoivodeshipsFallenBoars } from 'src/service';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -26,27 +23,34 @@ const useStyles = makeStyles(() => ({
 const TrafficByDevice = ({ className, ...rest }) => {
   const classes = useStyles();
   const theme = useTheme();
+  const fallen = getVoivodeshipsFallenBoars();
 
   const data = {
     datasets: [
       {
-        data: [63, 15, 22],
+        data: fallen.data,
         backgroundColor: [
           colors.indigo[500],
           colors.red[600],
-          colors.orange[600]
+          colors.orange[600],
+          colors.blue[600],
+          colors.green[600],
+          colors.lightGreen[600],
+          colors.lightBlue[600],
+          colors.yellow[600],
         ],
         borderWidth: 8,
         borderColor: colors.common.white,
         hoverBorderColor: colors.common.white
       }
     ],
-    labels: ['Desktop', 'Tablet', 'Mobile']
+    labels: fallen.labels
   };
 
+  const sum = fallen.data.reduce((acc, value) => acc + value, 0);
+  console.log(sum);
   const options = {
     animation: false,
-    cutoutPercentage: 80,
     layout: { padding: 0 },
     legend: {
       display: false
@@ -66,33 +70,12 @@ const TrafficByDevice = ({ className, ...rest }) => {
     }
   };
 
-  const devices = [
-    {
-      title: 'Desktop',
-      value: 63,
-      icon: LaptopMacIcon,
-      color: colors.indigo[500]
-    },
-    {
-      title: 'Tablet',
-      value: 15,
-      icon: TabletIcon,
-      color: colors.red[600]
-    },
-    {
-      title: 'Mobile',
-      value: 23,
-      icon: PhoneIcon,
-      color: colors.orange[600]
-    }
-  ];
-
   return (
     <Card
       className={clsx(classes.root, className)}
       {...rest}
     >
-      <CardHeader title="Traffic by Device" />
+      <CardHeader title="Przypadki w województwach" />
       <Divider />
       <CardContent>
         <Box
@@ -103,39 +86,6 @@ const TrafficByDevice = ({ className, ...rest }) => {
             data={data}
             options={options}
           />
-        </Box>
-        <Box
-          display="flex"
-          justifyContent="center"
-          mt={2}
-        >
-          {devices.map(({
-            color,
-            icon: Icon,
-            title,
-            value
-          }) => (
-            <Box
-              key={title}
-              p={1}
-              textAlign="center"
-            >
-              <Icon color="action" />
-              <Typography
-                color="textPrimary"
-                variant="body1"
-              >
-                {title}
-              </Typography>
-              <Typography
-                style={{ color }}
-                variant="h2"
-              >
-                {value}
-                %
-              </Typography>
-            </Box>
-          ))}
         </Box>
       </CardContent>
     </Card>

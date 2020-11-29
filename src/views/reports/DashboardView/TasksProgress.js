@@ -2,17 +2,15 @@ import React from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import {
-  Avatar,
-  Box,
   Card,
   CardContent,
   Grid,
-  LinearProgress,
   Typography,
   makeStyles,
-  colors
+  colors, useTheme
 } from '@material-ui/core';
-import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
+import { Doughnut } from 'react-chartjs-2';
+import { causeOfDeath } from '../../../service';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -27,7 +25,51 @@ const useStyles = makeStyles(() => ({
 
 const TasksProgress = ({ className, ...rest }) => {
   const classes = useStyles();
+  const theme = useTheme();
 
+  const d = causeOfDeath();
+  const data = {
+    datasets: [
+      {
+        data: d.data,
+        backgroundColor: [
+          colors.indigo[500],
+          colors.red[600],
+          colors.orange[600],
+          colors.blue[600],
+          colors.green[600],
+          colors.lightGreen[600],
+          colors.lightBlue[600],
+          colors.yellow[600],
+        ],
+        borderWidth: 8,
+        borderColor: colors.common.white,
+        hoverBorderColor: colors.common.white
+      }
+    ],
+    labels: d.labels
+  };
+
+  const options = {
+    animation: false,
+    layout: { padding: 0 },
+    legend: {
+      display: false
+    },
+    maintainAspectRatio: false,
+    responsive: true,
+    tooltips: {
+      backgroundColor: theme.palette.background.default,
+      bodyFontColor: theme.palette.text.secondary,
+      borderColor: theme.palette.divider,
+      borderWidth: 1,
+      enabled: true,
+      footerFontColor: theme.palette.text.secondary,
+      intersect: false,
+      mode: 'index',
+      titleFontColor: theme.palette.text.primary
+    }
+  };
   return (
     <Card
       className={clsx(classes.root, className)}
@@ -45,27 +87,17 @@ const TasksProgress = ({ className, ...rest }) => {
               gutterBottom
               variant="h6"
             >
-              TASKS PROGRESS
-            </Typography>
-            <Typography
-              color="textPrimary"
-              variant="h3"
-            >
-              75.5%
+              Przyczyny zgłoszeń
             </Typography>
           </Grid>
           <Grid item>
-            <Avatar className={classes.avatar}>
-              <InsertChartIcon />
-            </Avatar>
+            <Doughnut
+              data={data}
+              options={options}
+            />
           </Grid>
         </Grid>
-        <Box mt={3}>
-          <LinearProgress
-            value={75.5}
-            variant="determinate"
-          />
-        </Box>
+
       </CardContent>
     </Card>
   );
